@@ -2,24 +2,12 @@ import React, { useMemo } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Avatar } from '@rocket.chat/fuselage';
 
-import { getUserAvatarURL } from '../../../../app/utils/lib/getUserAvatarURL';
-
-const useAvatarUrl = ({ url, username, userId }) => useMemo(() => {
-	if (url) {
-		return url;
-	}
-
-	if (userId) {
-		const { username: foundUsername, avatarETag } = Meteor.users.findOne({ _id: userId }, { fields: { username: 1, avatarETag: 1 } });
-
-		return getUserAvatarURL(foundUsername, avatarETag);
-	}
-
-	return getUserAvatarURL(username);
-}, [url, username, userId]);
-
-function UserAvatar({ url, username, userId, ...props }) {
-	const avatarUrl = useAvatarUrl({ url, username, userId });
+function UserAvatar({ url, username, etag, ...props }) {
+	// NOW, `username` and `etag` props are enough to determine the whole state of
+	// this component, but it must be as performatic as possible as it will be
+	// rendered many times; and some of the state can be derived at the ancestors.
+	// Ideally, it should be a purely visual component.
+	const avatarUrl = url || `/avatar/${ username }${ etag ? `?etag=${ etag }` : '' }`;
 	return <Avatar url={avatarUrl} title={username} {...props}/>;
 }
 

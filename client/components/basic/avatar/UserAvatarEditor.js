@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Box, Button, Icon, TextInput, Margins } from '@rocket.chat/fuselage';
+import { Box, Button, Icon, TextInput, Margins, Avatar } from '@rocket.chat/fuselage';
 
 import { useTranslation } from '../../../contexts/TranslationContext';
 import { useFileInput } from '../../../hooks/useFileInput';
@@ -18,7 +18,7 @@ function UserAvatarSuggestions({ suggestions, setAvatarObj, setNewAvatarSource, 
 	</Margins>;
 }
 
-export function UserAvatarEditor({ username, setAvatarObj, suggestions, disabled, userId }) {
+export function UserAvatarEditor({ username, setAvatarObj, suggestions, disabled, etag }) {
 	const t = useTranslation();
 	const [avatarFromUrl, setAvatarFromUrl] = useState('');
 	const [newAvatarSource, setNewAvatarSource] = useState();
@@ -39,7 +39,7 @@ export function UserAvatarEditor({ username, setAvatarObj, suggestions, disabled
 		setAvatarObj('reset');
 	};
 
-	const url = newAvatarSource || undefined;
+	const url = newAvatarSource;
 
 	const handleAvatarFromUrlChange = (event) => {
 		setAvatarFromUrl(event.currentTarget.value);
@@ -48,11 +48,11 @@ export function UserAvatarEditor({ username, setAvatarObj, suggestions, disabled
 	return <Box display='flex' flexDirection='column' fontScale='p2'>
 		{t('Profile_picture')}
 		<Box display='flex' flexDirection='row' mbs='x4'>
-			<UserAvatar size='x120' url={url} userId={userId} username={username} style={{ objectFit: 'contain' }} mie='x4'/>
+			<UserAvatar size='x120' url={url} username={username} etag={etag} style={{ objectFit: 'contain' }} mie='x4'/>
 			<Box display='flex' flexDirection='column' flexGrow='1' justifyContent='space-between' mis='x4'>
 				<Box display='flex' flexDirection='row' mbs='none'>
 					<Margins inline='x4'>
-						<Button square mis='none' onClick={clickReset} disabled={disabled}><UserAvatar size='x36' url={`/avatar/%40${ username }`} mie='x4'/></Button>
+						<Button square mis='none' onClick={clickReset} disabled={disabled}><Avatar size='x36' url={`/avatar/%40${ username }`} mie='x4'/></Button>
 						<Button square onClick={clickUpload} disabled={disabled}><Icon name='upload' size='x20'/></Button>
 						<Button square mie='none' onClick={clickUrl} disabled={disabled}><Icon name='permalink' size='x20'/></Button>
 						{suggestions && <UserAvatarSuggestions suggestions={suggestions} setAvatarObj={setAvatarObj} setNewAvatarSource={setNewAvatarSource} disabled={disabled}/>}

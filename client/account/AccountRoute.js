@@ -18,13 +18,16 @@ const AccountRoute = () => {
 		SideNav.openFlex();
 	});
 
-	return <>
-		{{
-			profile: <AccountProfilePage />,
-			preferences: <AccountPreferencesPage />,
-			security: <AccountSecurityPage />,
-		}[page]}
-	</>;
+	if (page === 'profile') {
+		return <AccountProfilePage />;
+	}
+	if (page === 'preferences') {
+		return <AccountPreferencesPage />;
+	}
+	if (page === 'security') {
+		return <AccountSecurityPage />;
+	}
+	return null;
 };
 
 export default AccountRoute;
