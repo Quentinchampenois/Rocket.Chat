@@ -1,5 +1,4 @@
-import React, { useMemo } from 'react';
-import { Meteor } from 'meteor/meteor';
+import React from 'react';
 import { Avatar } from '@rocket.chat/fuselage';
 
 function UserAvatar({ url, username, etag, ...props }) {

@@ -74,7 +74,7 @@ const AccountPreferencesPage = () => {
 				</ButtonGroup>
 			</Page.Header>
 			<Page.ScrollableContentWithShadow>
-				<Box maxWidth='x600' w='full' alignSelf='center'>
+				<Box maxWidth='600px' w='full' alignSelf='center'>
 					<Accordion>
 						<PreferencesLocalizationSection onChange={onChange} defaultExpanded/>
 						<PreferencesGlobalSection onChange={onChange} />

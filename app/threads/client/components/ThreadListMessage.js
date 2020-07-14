@@ -44,7 +44,7 @@ const followStyle = css`
 	}
 `;
 
-export default function ThreadListMessage({ _id, msg, following, username, name, ts, replies, participants, handleFollowButton, unread, mention, all, t = (e) => e, formatDate = (e) => e, tlm, className = [], u: { _id: userId }, ...props }) {
+export default function ThreadListMessage({ _id, msg, following, username, name, ts, replies, participants, handleFollowButton, unread, mention, all, t = (e) => e, formatDate = (e) => e, tlm, className = [], ...props }) {
 	const button = !following ? 'bell-off' : 'bell';
 	const actionLabel = t(!following ? 'Not_Following' : 'Following');
 
